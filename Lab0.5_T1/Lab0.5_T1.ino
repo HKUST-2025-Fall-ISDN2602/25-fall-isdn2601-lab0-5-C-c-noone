@@ -7,10 +7,10 @@ const int resolution = 8;
 
  
 void setup(){
-  Serial.begin(115200);
+  
 // set GPIO36 as input
   pinMode(vrPin, INPUT);//This function is used to setup LEDC pin with given frequency and resolution. 
-  //LEDC channel will be selected automatically.
+  Serial.begin(115200); //LEDC channel will be selected automatically.
   //bool ledcAttach(uint8_t pin, uint32_t freq, uint8_t resolution);
   //pin select LEDC pin.
   //freq select frequency of pwm.
@@ -27,17 +27,6 @@ void loop(){
   Serial.println(dutyCycle);
   //bool ledcWrite(uint8_t pin, uint32_t duty);
 
-  // increase the LED brightness
-  for(int dutyCycle = 0; dutyCycle <= 255; dutyCycle++){   
-    // changing the LED brightness with PWM
-    ledcWrite(ledPin, dutyCycle);
-    delay(15);
-  }
-
-  // decrease the LED brightness
-  for(int dutyCycle = 255; dutyCycle >= 0; dutyCycle--){
-    // changing the LED brightness with PWM
-    ledcWrite(ledPin, dutyCycle);   
+  ledcWrite(ledPin, dutyCycle);
     delay(100);
   }
-}
