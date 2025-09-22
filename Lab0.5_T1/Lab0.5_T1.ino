@@ -1,12 +1,15 @@
 // the number of the LED pin
 const int ledPin = 5;  // 5 corresponds to GPIO5
-
+const int vrPin = 36;
 // setting PWM properties
 const int freq = 5000;
 const int resolution = 8;
+
  
 void setup(){
-  //This function is used to setup LEDC pin with given frequency and resolution. 
+  Serial.begin(115200);
+// set GPIO36 as input
+  pinMode(vrPin, INPUT);//This function is used to setup LEDC pin with given frequency and resolution. 
   //LEDC channel will be selected automatically.
   //bool ledcAttach(uint8_t pin, uint32_t freq, uint8_t resolution);
   //pin select LEDC pin.
@@ -19,7 +22,9 @@ void setup(){
 }
  
 void loop(){
-
+  int vr_value = analogRead(vrPin);
+  int dutyCycle = map(vr_value, 0, 4095, 0, 255);
+  Serial.println(dutyCycle);
   //bool ledcWrite(uint8_t pin, uint32_t duty);
 
   // increase the LED brightness
@@ -33,6 +38,6 @@ void loop(){
   for(int dutyCycle = 255; dutyCycle >= 0; dutyCycle--){
     // changing the LED brightness with PWM
     ledcWrite(ledPin, dutyCycle);   
-    delay(15);
+    delay(100);
   }
 }
